@@ -1,0 +1,15 @@
+{
+  "name": "web3-test-demo",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@playwright/test": "^1.37.0",
+    "@synthetixio/synpress": "3.7.2-beta.3",
+    "serve": "^14.2.0"
+  },
+  "scripts": {
+    "install:chromium": "playwright install chromium",
+    "test": "SERIAL_MODE=true playwright test --project=chromium",
+    "test:headless": "HEADLESS_MODE=true SERIAL_MODE=true playwright test --project=chromium",
+    "start:server": "serve ../dist/web3-demo -p 3000"
+  }
+}
