@@ -20,10 +20,10 @@ import {ChainId, NETWORK_INFO} from "../../../core/helpers/networks";
 })
 export class HomeComponent implements OnInit {
   win: any;
-  primary_network = NETWORK_INFO[ChainId.BSCTestnet];
+  primary_network = NETWORK_INFO[ChainId.Sepolia];
 
-  BUSD_ADDRESS: string = '0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee';
-  BUSD_ABI: string[] = [
+  LINK_ADDRESS: string = '0x779877A7B0D9E8603169DdbD7836e478b4624789';
+  LINK_ABI: string[] = [
     "function name() public view returns (string name)",
     "function balanceOf(address _owner) public view returns (uint256 balance)",
     "function transfer(address _to, uint256 _value) public returns (bool success)",
@@ -56,8 +56,8 @@ export class HomeComponent implements OnInit {
 
   async getTokenName() {
     const provider = new ethers.providers.JsonRpcProvider(this.primary_network.rpcUrls[0]);
-    const busdContract = new ethers.Contract(this.BUSD_ADDRESS, this.BUSD_ABI, provider);
-    const tokenName = await busdContract['name']();
+    const linkContract = new ethers.Contract(this.LINK_ADDRESS, this.LINK_ABI, provider);
+    const tokenName = await linkContract['name']();
 
     console.log('Token name:', tokenName);
   }
@@ -68,16 +68,16 @@ export class HomeComponent implements OnInit {
     const signer = web3provider.getSigner();
     const userAddress = await signer.getAddress();
 
-    const busdContract = new ethers.Contract(this.BUSD_ADDRESS, this.BUSD_ABI, signer);
+    const linkContract = new ethers.Contract(this.LINK_ADDRESS, this.LINK_ABI, signer);
 
-    let busdBalance = await busdContract['balanceOf'](userAddress);
-    console.log('balance in Bignumber:', busdBalance);
+    let linkBalance = await linkContract['balanceOf'](userAddress);
+    console.log('balance in Bignumber:', linkBalance);
 
-    busdBalance = ethers.utils.formatUnits(busdBalance, 18);
-    console.log('balance in string:', busdBalance);
+    linkBalance = ethers.utils.formatUnits(linkBalance, 18);
+    console.log('balance in string:', linkBalance);
 
 
-    this.balance = busdBalance;
+    this.balance = linkBalance;
   }
 
   async transfer() {
@@ -86,12 +86,12 @@ export class HomeComponent implements OnInit {
     const web3provider = new ethers.providers.Web3Provider(provider);
     const signer = web3provider.getSigner();
 
-    const busdContract = new ethers.Contract(this.BUSD_ADDRESS, this.BUSD_ABI, signer);
+    const linkContract = new ethers.Contract(this.LINK_ADDRESS, this.LINK_ABI, signer);
 
     const amountFormatted = ethers.utils.parseEther(this.amount)
 
     try {
-      const tx = await busdContract['transfer'](this.recipient, amountFormatted);
+      const tx = await linkContract['transfer'](this.recipient, amountFormatted);
       console.log('Transaction:', tx);
 
       const receipt = await tx.wait();

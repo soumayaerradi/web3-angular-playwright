@@ -18,6 +18,7 @@ export interface ChainIdModel {
   1337: string;
   31337: string;
   250: string;
+  11155111: string;
 }
 
 export enum ChainId {
@@ -40,6 +41,7 @@ export enum ChainId {
   Localhost = 1337,
   Hardhat = 31337,
   Fantom = 250,
+  Sepolia = 11155111,
 }
 
 export const CHAIN_NAMES: ChainIdModel = {
@@ -62,6 +64,7 @@ export const CHAIN_NAMES: ChainIdModel = {
   [ChainId.Localhost]: 'Localhost',
   [ChainId.Hardhat]: 'Hardhat',
   [ChainId.Fantom]: 'Fantom',
+  [ChainId.Sepolia]: 'Sepolia',
 }
 
 export const NETWORK_ICON: ChainIdModel = {
@@ -84,6 +87,7 @@ export const NETWORK_ICON: ChainIdModel = {
   [ChainId.Localhost]: '',
   [ChainId.Hardhat]: '',
   [ChainId.Fantom]: '/assets/icons/networks/fantom.jpeg',
+  [ChainId.Sepolia]: '/assets/icons/networks/sepolia.jpeg',
 }
 
 export const  NETWORK_INFO = {
@@ -251,5 +255,16 @@ export const  NETWORK_INFO = {
     },
     rpcUrls: ['http://127.0.0.1:8545/'],
     blockExplorerUrls: ['http://127.0.0.1:8545/']
+  },
+  [ChainId.Sepolia]: {
+    chainId: '0xaa36a7',
+    chainName: 'Sepolia',
+    nativeCurrency: {
+      name: 'Sepolia',
+      symbol: 'SEPOLIA',
+      decimals: 18,
+    },
+    rpcUrls: ['https://ethereum-sepolia.publicnode.com'],
+    blockExplorerUrls: ['https://sepolia.etherscan.io'],
   },
 }

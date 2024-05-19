@@ -51,29 +51,29 @@ test("import private key and connect wallet using imported metamask account", as
 
 test("addMetamaskNetwork should add custom network", async () => {
   const networkAdded = await metamask.addNetwork({
-    networkName: 'BNB Testnet Network',
-    rpcUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-    chainId: '0x61',
-    symbol: 'BNB',
-    blockExplorer: 'https://testnet.bscscan.com',
-    isTestnet: false,
+    networkName: 'SePolia Testnet',
+    rpcUrl: 'https://ethereum-sepolia.publicnode.com',
+    chainId: '0xaa36a7',
+    symbol: 'SEPOLIA',
+    blockExplorer: 'https://sepolia.etherscan.io',
+    isTestnet: true
   });
   expect(networkAdded).toBe(true);
   await sharedPage.click("#disconnect");
   await metamask.disconnectWalletFromAllDapps();
   await sharedPage.click("#connectButton");
   await metamask.acceptAccess();
-  await expect(sharedPage.locator("#network")).toHaveText("bnbt");
-  await expect(sharedPage.locator("#chainId")).toHaveText("97");
+  await expect(sharedPage.locator("#network")).toHaveText("sepolia");
+  await expect(sharedPage.locator("#chainId")).toHaveText("11155111");
 });
 
 test("importMetamaskToken should import token to metamask and read token balance", async () => {
-  const USDCContractAddressOnBinanceTestnet = "0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee";
-  const tokenData = await metamask.importToken(USDCContractAddressOnBinanceTestnet);
+  const LINKContractAddress = "0x779877A7B0D9E8603169DdbD7836e478b4624789";
+  const tokenData = await metamask.importToken(LINKContractAddress);
   expect(tokenData.tokenContractAddress).toBe(
-    USDCContractAddressOnBinanceTestnet
+    LINKContractAddress
   );
-  expect(tokenData.tokenSymbol).toBe("BUSD");
+  expect(tokenData.tokenSymbol).toBe("LINK");
   expect(tokenData.tokenDecimals).toBe("18");
   expect(tokenData.imported).toBe(true);
   await sharedPage.click("#getBalance");
